@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch Donations Data</title>
+</head>
+<body>
+    <h1>Donations Data</h1>
+    <button id="fetchDataBtn">Fetch Data</button>
+    <pre id="output"></pre>
+
+    <script>
+        document.getElementById('fetchDataBtn').addEventListener('click', () => {
+            fetch('http://localhost:3000/get-data')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('output').textContent = JSON.stringify(data, null, 2);
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>
