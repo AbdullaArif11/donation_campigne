@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donation Campaign Admin Panel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            background-color: #0052FF;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #003BB3;
+        }
+
+        .output {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            max-width: 500px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Donation Campaign Admin Panel</h1>
+
+    <button onclick="fetchDonationCards()">Get Donation Cards Data</button>
+    <button onclick="fetchCharityOrganizations()">Get Charity Organizations Data</button>
+
+    <div class="output" id="output"></div>
+
+    <script>
+        // Function to fetch donation cards and save to data.json
+        function fetchDonationCards() {
+            fetch('http://localhost:3000/get-donation-cards')
+                .then(response => response.json())
+                .then(data => {
+                    displayData(data, 'Donation Cards');
+                })
+                .catch(error => {
+                    console.error('Error fetching donation cards:', error);
+                    document.getElementById('output').innerHTML = 'Error fetching donation cards data.';
+                });
+        }
+
+        // Function to fetch charity organizations and save to data2.json
+        function fetchCharityOrganizations() {
+            fetch('http://localhost:3000/get-charity-organizations')
+                .then(response => response.json())
+                .then(data => {
+                    displayData(data, 'Charity Organizations');
+                })
+                .catch(error => {
+                    console.error('Error fetching charity organizations:', error);
+                    document.getElementById('output').innerHTML = 'Error fetching charity organizations data.';
+                });
+        }
+
+        // Display fetched data in the output div
+        function displayData(data, title) {
+            let output = `<h2>${title}</h2><ul>`;
+            data.forEach(item => {
+                output += `<li>ID: ${item.id}, Title: ${item.Title || item.name}, Price: ${item.Price || 'N/A'}</li>`;
+            });
+            output += '</ul>';
+            document.getElementById('output').innerHTML = output;
+        }
+    </script>
+
+</body>
+</html>

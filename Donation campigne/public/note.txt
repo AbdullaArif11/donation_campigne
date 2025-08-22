@@ -1,0 +1,12 @@
+node server.js
+
+npm install
+
+npm start
+
+npm install express mysql cors
+
+
+if all of are setup before then just comment the 
+npm start 
+
